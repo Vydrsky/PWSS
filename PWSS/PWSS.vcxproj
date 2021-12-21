@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CheckForClients.cpp" />
     <ClCompile Include="ConfigureServer.cpp" />
     <ClCompile Include="FileAction.cpp" />
     <ClCompile Include="main.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CheckForClients.h" />
     <ClInclude Include="ConfigureServer.h" />
     <ClInclude Include="FileAction.h" />
     <ClInclude Include="ServerData.h" />
