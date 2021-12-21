@@ -48,6 +48,9 @@ void ConfigureServer::Enter() {
 			0
 		}
 	);
+
+	//cache d³ugoœci adresu klienta
+	stateMachine->data->clientLen = sizeof(stateMachine->data->clientAddr);
 }
 
 void ConfigureServer::Tick() {
