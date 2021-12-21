@@ -28,13 +28,13 @@ void CheckForClients::Tick()
 			FILE* file;
 			char ip4[INET_ADDRSTRLEN];
 			inet_ntop(AF_INET, &(stateMachine->data->clientAddr.sin_addr), ip4, INET_ADDRSTRLEN);
-			std::string path = "C:\\Users\\Marek\\source\\repos\\pwsstcpserver\\Debug\\";
+			std::string path = "C:\\Users\\Wydrzu\\source\\repos\\PWŒS5_kw_klient\\Debug\\";
 			path.append(ip4);
 			path.append(std::to_string(newsockfd));
-			//fopen_s(&file, path.c_str(), "wb");
+			fopen_s(&file, path.c_str(), "wb");
 			//Otwieramy plik do zapisu, plik ten nazwany jest adresem IP socketu i jego deskryptorem
-			//FileAction action(file);
-			//mapaPlikow[newsockfd] = action;
+			FileAction action(file);
+			stateMachine->data->fileMap[newsockfd] = action;
 			//Dodajemy plik do mapy plików
 		}
 		else if ((*it).revents & POLLHUP || (*it).revents & POLLERR) {

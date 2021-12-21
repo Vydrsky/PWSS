@@ -12,7 +12,6 @@ public:
 	int serverSocket;
 	sockaddr_in serverAddr;
 	std::vector<pollfd> socketList;
-	std::vector<pollfd>::iterator it;
 	sockaddr_in clientAddr;
 	socklen_t clientLen;
 	std::map<SOCKET, FileAction> fileMap;

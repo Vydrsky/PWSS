@@ -1,46 +1,83 @@
 #include "FileAction.h"
 
 
-FileAction::FileAction() {
+FileAction::FileAction(FILE* _file) {
+    file = _file;
 
 }
 
-FileAction::FileAction(FILE* f) {
-	file = f;
-	buff = "";
-	data = "";
-	mode = -1;
+void FileAction::ReadInput(char input[1024]) {
+    int pos;
+    bool flag = false;
+    for (int i = commandIt; i < 10; i++) {
+        if (input[i] != '\n') {
+            command[i] = input[i];
+            commandIt++;
+        }
+        else {
+            flag = true;
+            break;
+        }
+    }
+
+    if (flag) {
+        std::string commandString = command;
+        if (commandString == "UPLOAD") {
+            mode = POLLRDNORM;
+            bufor = Substring(input, 7);
+            data = Substring(input, commandIt + 2);
+        }
+        else if (commandString == "DOWNLOAD") {
+            mode = POLLWRNORM;
+            bufor = Substring(input, 9);
+            data = Substring(input, commandIt + 2);
+        }
+        else {
+            mode = POLLERR;
+        }
+    }
 }
 
-
-void FileAction::WriteToBuff(std::string str) {
-	buff = str;
+short FileAction::GetMode() {
+    return mode;
 }
 
-void FileAction::CheckMode() {
-	if (size_t pos=buff.find("\n") != std::string::npos) {
-		if (buff.substr(0, 6) == "UPLOAD") {
-			mode = POLLRDNORM;
-			data = buff.substr(pos);
-		}
-		else if (buff.substr(0, 7) == "DOWNLOAD") {
-			mode = POLLWRNORM;
-			data = buff.substr(pos);
-		}
-		else {
-			mode = POLLERR;
-		}
-	}
+std::string FileAction::GetBuff() {
+    return bufor;
 }
 
-FILE* FileAction::GetFile() {
-	return file;
+std::string FileAction::GetCommand() {
+    return command;
 }
 
-int FileAction::GetMode() {
-	return mode;
+FILE* FileAction::GetFILE() {
+    return file;
 }
 
-std::string FileAction::GetPath() {
-	return data;
+bool FileAction::Find(char input[1024], char _char, int* pos) {
+    for (int i = 0; i < 1024; i++) {
+        if (input[i] == _char) {
+            *pos = i;
+            return true;
+        }
+    }
+    return false;
+}
+
+char* FileAction::Substring(char input[1024], int start, int end) {
+    char* substr;
+    substr = (char*)malloc(end - start);
+    for (int i = start,j=0; i < end; i++,j++) {
+        substr[j] = input[i];
+    }
+    return substr;
+}
+
+char* FileAction::Substring(char input[1024], int start) {
+    char* substr;
+    substr = (char*)malloc(1024 - start);
+    for (int i = start,j = 0; i < 1024; i++,j++) {
+        substr[j] = input[i];
+    }
+    return substr;
 }
