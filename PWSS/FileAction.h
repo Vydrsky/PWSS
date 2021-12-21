@@ -1,8 +1,9 @@
+#ifndef FILEACTION_H
+#define FILEACTION_H
 #include <stdio.h>
 #include <string>
 #include <iostream>
 #include <winsock2.h>
-
 class FileAction
 {
 private:
@@ -20,4 +21,6 @@ public:
 	void CheckMode();
 	std::string GetPath();
 };
+
+#endif
 

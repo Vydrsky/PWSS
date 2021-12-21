@@ -1,6 +1,8 @@
+#ifndef CONFIGURESERVER_H
+#define CONFIGURESERVER_H
+
 #include "FileAction.h"
 #include "State.h"
-
 #include <iostream>
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -25,4 +27,6 @@ public:
 	virtual void Tick() override;
 	virtual void Exit() override;
 };
+
+#endif
 

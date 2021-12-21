@@ -1,3 +1,5 @@
+#ifndef STATEMACHINE_H
+#define STATEMACHINE_H
 
 #include <stdio.h>
 #include "ServerData.h"
@@ -15,4 +17,6 @@ public:
 	void Tick();
 	void Kill();
 };
+
+#endif
 

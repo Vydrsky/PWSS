@@ -20,4 +20,6 @@ void StateMachine::Tick() {
 void StateMachine::Kill() {
 	state->Exit();
 	state = NULL;
+	free(this);
+	exit(1);
 }

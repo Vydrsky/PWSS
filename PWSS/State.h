@@ -1,3 +1,5 @@
+#ifndef STATE_H
+#define STATE_H
 
 class StateMachine;
 
@@ -10,4 +12,6 @@ public:
 	virtual void Tick() {};
 	virtual void Exit() {};
 };
+
+#endif
 
