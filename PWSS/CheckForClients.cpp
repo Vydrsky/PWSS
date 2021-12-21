@@ -24,7 +24,7 @@ void CheckForClients::Tick()
 			it = stateMachine->data->socketList.begin();
 
 			//Dodajemy nowy socket do listy socketów
-			std::cout << "Socket " << newsockfd << " rozpoczal zapis" << std::endl;
+			std::cout << "Socket " << newsockfd << " zostal polaczony" << std::endl;
 			FILE* file;
 			char ip4[INET_ADDRSTRLEN];
 			inet_ntop(AF_INET, &(stateMachine->data->clientAddr.sin_addr), ip4, INET_ADDRSTRLEN);
@@ -36,6 +36,11 @@ void CheckForClients::Tick()
 			//FileAction action(file);
 			//mapaPlikow[newsockfd] = action;
 			//Dodajemy plik do mapy plików
+		}
+		else if ((*it).revents & POLLHUP || (*it).revents & POLLERR) {
+			closesocket((*it).fd);
+			std::cout << "Zamknieto polaczenie " << (*it).fd << std::endl;
+			stateMachine->data->socketList.erase(it--);
 		}
 	}
 }

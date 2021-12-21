@@ -22,6 +22,7 @@
     <ClCompile Include="CheckForClients.cpp" />
     <ClCompile Include="ConfigureServer.cpp" />
     <ClCompile Include="FileAction.cpp" />
+    <ClCompile Include="GetServiceType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ServerData.cpp" />
     <ClCompile Include="State.cpp" />
@@ -31,6 +32,7 @@
     <ClInclude Include="CheckForClients.h" />
     <ClInclude Include="ConfigureServer.h" />
     <ClInclude Include="FileAction.h" />
+    <ClInclude Include="GetServiceType.h" />
     <ClInclude Include="ServerData.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
