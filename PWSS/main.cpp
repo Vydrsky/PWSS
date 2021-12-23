@@ -24,5 +24,5 @@ int main()
         stateMachine.ChangeState(executeCommand);
         stateMachine.Tick();
     }
-    cout << stateMachine.data->serverSocket;
+    stateMachine.Kill();
 }

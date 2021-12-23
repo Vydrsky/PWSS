@@ -14,12 +14,13 @@ private:
     char* data = {};
     short mode = 0;
     short isOpen = 0;
+    int ammountRecieved = 0;
 public:
     FileAction() { file = {}; };
     FileAction(FILE* _file);
     void ReadInput(char input[1024]);
     short GetMode();
-    std::string GetBuff();
+    char* GetBuff();
     FILE* GetFILE();
     std::string GetCommand();
     bool Find(char input[1024], char _char, int* pos);
@@ -27,6 +28,8 @@ public:
     char* Substring(char input[1024], int start);
     void Open(std::string path,std::string mode);
     short GetState();
+    void SetRecieved(int ammountRecieved);
+    int GetRecieved();
 
 };
 

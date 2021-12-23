@@ -11,7 +11,6 @@ void ExecuteCommand::Tick()
 	{
 		if (stateMachine->data->fileMap[(*it).fd].GetCommand() == "DOWNLOAD") {
 			std::string path=stateMachine->data->fileMap[(*it).fd].GetBuff();
-			std::cout << path;
 			if (!stateMachine->data->fileMap[(*it).fd].GetState()) {
 				stateMachine->data->fileMap[(*it).fd].Open(path, "rb");
 			}
@@ -21,29 +20,29 @@ void ExecuteCommand::Tick()
 				sendAll(buff, ammountRead, (*it).fd);
 			}
 			else {
-				closesocket((*it).fd);
 				fclose(stateMachine->data->fileMap[(*it).fd].GetFILE());
+				closesocket((*it).fd);
+				stateMachine->data->socketList.erase(it--);
+				std::cout << "Zamknieto polaczenie: " << (*it).fd << std::endl;
 			}
 		}
 		else if (stateMachine->data->fileMap[(*it).fd].GetCommand() == "UPLOAD") {
-			std::cout << "hello" << std::endl;
-			std::string path = "C:\\Users\\Wydrzu\\source\\repos\\PWSS\\Debug\\";
-			char ip4[INET_ADDRSTRLEN];
+			std::string path = "C:\\Users\\Marek\\source\\repos\\PWSS2\\x64\\Debug\\";
+			char ip4[INET_ADDRSTRLEN]; 
+			inet_ntop(AF_INET, &(stateMachine->data->clientAddr.sin_addr), ip4, INET_ADDRSTRLEN);
 			path.append(ip4);
 			path.append(std::to_string((*it).fd));
 			char buff[1024];
-			std::cout << stateMachine->data->fileMap[(*it).fd].GetState() << std::endl;
 			if (!stateMachine->data->fileMap[(*it).fd].GetState()) {
 				stateMachine->data->fileMap[(*it).fd].Open(path, "wb");
-				std::cout << stateMachine->data->fileMap[(*it).fd].GetState() << std::endl;
+				fwrite(stateMachine->data->fileMap[(*it).fd].GetBuff(), sizeof(char), (stateMachine->data->fileMap[(*it).fd].GetRecieved())-7, stateMachine->data->fileMap[(*it).fd].GetFILE());
 			}
-			int bytesRecieved;
-			do {
-				bytesRecieved = recv((*it).fd, buff, sizeof(buff), 0);
+			int bytesRecieved=0;
+			bytesRecieved = recv((*it).fd, buff, 1024, 0);
+			if (bytesRecieved > 0) {
 				fwrite(buff, sizeof(char), bytesRecieved, stateMachine->data->fileMap[(*it).fd].GetFILE());
-			} while (bytesRecieved > 0);
-
-			if (stateMachine->data->fileMap[(*it).fd].GetState()) {
+			}
+			else{
 				fclose(stateMachine->data->fileMap[(*it).fd].GetFILE());
 			}
 		}
@@ -63,6 +62,5 @@ int ExecuteCommand::sendAll(char* buff, int size, int socket)
 			buff += ammountSent;
 		}
 	}
-	std::cout << ammountSent << std::endl;
 	return 0;
 }

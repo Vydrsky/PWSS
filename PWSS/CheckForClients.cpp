@@ -13,7 +13,6 @@ void CheckForClients::Tick()
 		SOCKET newsockfd;
 		if (((*it).revents & POLLRDNORM)) {
 			if ((*it).fd == stateMachine->data->serverSocket) {
-				std::cout << "opierdalam siê" << std::endl;
 				//Jeœli tym socketem jest socket serwera to oznacza to, ¿e ten skomunikowa³ siê z nowym socketem
 				newsockfd = accept(stateMachine->data->serverSocket, (struct sockaddr*)&stateMachine->data->clientAddr, &stateMachine->data->clientLen);
 				if (newsockfd < 0) {

@@ -24,12 +24,10 @@ void FileAction::ReadInput(char input[1024]) {
         if (commandString == "UPLOAD") {
             mode = POLLRDNORM;
             bufor = Substring(input, 7);
-            data = Substring(input, commandIt + 2);
         }
         else if (commandString == "DOWNLOAD") {
             mode = POLLWRNORM;
             bufor = Substring(input, 9);
-            data = Substring(input, commandIt + 2);
         }
         else {
             mode = POLLERR;
@@ -41,7 +39,7 @@ short FileAction::GetMode() {
     return mode;
 }
 
-std::string FileAction::GetBuff() {
+char* FileAction::GetBuff() {
     return bufor;
 }
 
@@ -91,4 +89,14 @@ void FileAction::Open(std::string path,std::string mode) {
 short FileAction::GetState()
 {
     return isOpen;
+}
+
+void FileAction::SetRecieved(int ammountRecieved)
+{
+    this->ammountRecieved = ammountRecieved;
+}
+
+int FileAction::GetRecieved()
+{
+    return ammountRecieved;
 }
