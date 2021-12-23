@@ -9,7 +9,6 @@ void ExecuteCommand::Tick()
 {
 	for (auto it = stateMachine->data->socketList.begin();it != stateMachine->data->socketList.end();++it)
 	{
-		std::cout << "Dupa" << std::endl;
 		if (stateMachine->data->fileMap[(*it).fd].GetCommand() == "DOWNLOAD") {
 			std::string path=stateMachine->data->fileMap[(*it).fd].GetBuff();
 			std::cout << path;
@@ -27,9 +26,26 @@ void ExecuteCommand::Tick()
 			}
 		}
 		else if (stateMachine->data->fileMap[(*it).fd].GetCommand() == "UPLOAD") {
+			std::cout << "hello" << std::endl;
+			std::string path = "C:\\Users\\Wydrzu\\source\\repos\\PWSS\\Debug\\";
+			char ip4[INET_ADDRSTRLEN];
+			path.append(ip4);
+			path.append(std::to_string((*it).fd));
+			char buff[1024];
+			std::cout << stateMachine->data->fileMap[(*it).fd].GetState() << std::endl;
+			if (!stateMachine->data->fileMap[(*it).fd].GetState()) {
+				stateMachine->data->fileMap[(*it).fd].Open(path, "wb");
+				std::cout << stateMachine->data->fileMap[(*it).fd].GetState() << std::endl;
+			}
+			int bytesRecieved;
+			do {
+				bytesRecieved = recv((*it).fd, buff, sizeof(buff), 0);
+				fwrite(buff, sizeof(char), bytesRecieved, stateMachine->data->fileMap[(*it).fd].GetFILE());
+			} while (bytesRecieved > 0);
 
-		}
-		else {
+			if (stateMachine->data->fileMap[(*it).fd].GetState()) {
+				fclose(stateMachine->data->fileMap[(*it).fd].GetFILE());
+			}
 		}
 	}
 }

@@ -14,7 +14,7 @@ void GetServiceType::Tick()
 			char buff[1024] = { 0 };
 			amountRecieved = recv((*it).fd, buff, 1024, 0);
 			stateMachine->data->fileMap[(*it).fd].ReadInput(buff);
-			cout << "Wpisa³em jakiœ syf" << stateMachine->data->fileMap[(*it).fd].GetCommand() << endl;
+			cout << "Komenda: " << stateMachine->data->fileMap[(*it).fd].GetCommand() << endl;
 		}
 	}
 
