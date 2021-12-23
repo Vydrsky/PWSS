@@ -3,7 +3,6 @@
 
 FileAction::FileAction(FILE* _file) {
     file = _file;
-
 }
 
 void FileAction::ReadInput(char input[1024]) {
@@ -80,4 +79,16 @@ char* FileAction::Substring(char input[1024], int start) {
         substr[j] = input[i];
     }
     return substr;
+}
+
+void FileAction::Open(std::string path,std::string mode) {
+    fopen_s(&file, path.c_str(), mode.c_str());
+    if (file) {
+        isOpen = 1;
+    }
+}
+
+short FileAction::GetState()
+{
+    return isOpen;
 }

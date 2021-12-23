@@ -13,8 +13,9 @@ private:
     char* bufor = {};
     char* data = {};
     short mode = 0;
+    short isOpen = 0;
 public:
-    FileAction() {};
+    FileAction() { file = {}; };
     FileAction(FILE* _file);
     void ReadInput(char input[1024]);
     short GetMode();
@@ -24,7 +25,8 @@ public:
     bool Find(char input[1024], char _char, int* pos);
     char* Substring(char input[1024], int start, int end);
     char* Substring(char input[1024], int start);
-
+    void Open(std::string path,std::string mode);
+    short GetState();
 
 };
 
