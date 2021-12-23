@@ -1,10 +1,10 @@
-#ifndef CHECKFORCLIENTS_H
-#define CHECKFORCLIENTS_H
+#ifndef EXECUTECOMMAND_H
+#define EXECUTECOMMAND_H
 
 #include "State.h"
 
 
-class CheckForClients : public State
+class ExecuteCommand : public State
 {
 	using State::State;
 	virtual void Enter() override;
@@ -13,3 +13,4 @@ class CheckForClients : public State
 };
 
 #endif
+

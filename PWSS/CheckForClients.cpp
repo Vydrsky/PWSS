@@ -37,7 +37,7 @@ void CheckForClients::Tick()
 			stateMachine->data->fileMap[newsockfd] = action;
 			//Dodajemy plik do mapy plików
 		}
-		else if ((*it).revents & POLLHUP || (*it).revents & POLLERR) {
+		else if (((*it).revents & POLLHUP ) || (*it).revents & POLLERR) {
 			closesocket((*it).fd);
 			std::cout << "Zamknieto polaczenie " << (*it).fd << std::endl;
 			stateMachine->data->socketList.erase(it--);

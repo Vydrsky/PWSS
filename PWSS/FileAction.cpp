@@ -9,9 +9,9 @@ FileAction::FileAction(FILE* _file) {
 void FileAction::ReadInput(char input[1024]) {
     int pos;
     bool flag = false;
-    for (int i = commandIt; i < 10; i++) {
+    for (int i = commandIt,j=0; i < 10; i++,j++) {
         if (input[i] != '\n') {
-            command[i] = input[i];
+            command[i] = input[j];
             commandIt++;
         }
         else {
