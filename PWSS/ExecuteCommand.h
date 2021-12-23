@@ -10,6 +10,7 @@ class ExecuteCommand : public State
 	virtual void Enter() override;
 	virtual void Tick() override;
 	virtual void Exit() override;
+	int sendAll(char* buff, int size, int socket);
 };
 
 #endif
