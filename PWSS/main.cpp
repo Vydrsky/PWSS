@@ -25,4 +25,6 @@ int main()
         stateMachine.Tick();
     }
     stateMachine.Kill();
+
+    WSACleanup();
 }

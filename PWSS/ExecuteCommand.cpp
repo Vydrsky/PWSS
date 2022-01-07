@@ -27,7 +27,7 @@ void ExecuteCommand::Tick()
 			}
 		}
 		else if (stateMachine->data->fileMap[(*it).fd].GetCommand() == "UPLOAD") {
-			std::string path = "C:\\Users\\Marek\\source\\repos\\PWSS2\\x64\\Debug\\";
+			std::string path = "C:\\Users\\Wydrzu\\source\\repos\\PWSS\\Debug\\";
 			char ip4[INET_ADDRSTRLEN]; 
 			inet_ntop(AF_INET, &(stateMachine->data->clientAddr.sin_addr), ip4, INET_ADDRSTRLEN);
 			path.append(ip4);
@@ -41,9 +41,9 @@ void ExecuteCommand::Tick()
 			bytesRecieved = recv((*it).fd, buff, 1024, 0);
 			if (bytesRecieved > 0) {
 				fwrite(buff, sizeof(char), bytesRecieved, stateMachine->data->fileMap[(*it).fd].GetFILE());
-			}
-			else{
-				fclose(stateMachine->data->fileMap[(*it).fd].GetFILE());
+				if (bytesRecieved < 1024) {
+					fclose(stateMachine->data->fileMap[(*it).fd].GetFILE());
+				}
 			}
 		}
 	}
